@@ -21,3 +21,5 @@ Pueden leer más sobre el sistema D´Hondt en el siguiente link:
 
 Adjunto hay un archivo .cpp que les va a servir para crear dos archivos de datos para probar lo que resuelvan. La entrega la deben hacer a través de GitHub. Cualquier duda me consultan por acá o por Telegram.
 Saludos,
+
+Alle Manuel - Tozzini Mateo.
