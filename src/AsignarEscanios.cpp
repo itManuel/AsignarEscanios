@@ -6,6 +6,8 @@
 // Description : Sistema D'Hont para asignación de escanios.
 //============================================================================
 
+#include <fstream>
+
 
 struct VotosAgrupacion {
     int nroLista;
@@ -22,18 +24,18 @@ namespace {
 
 }
 
-EscaniosAgrupacion RepartirEscanios(VotosAgrupacion &partidos,int &cantEscanios, int cantPartidos){
-	EscaniosAgrupacion escanios [cantPartidos];
+void RepartirEscanios(VotosAgrupacion partidos,int cantEscanios, int cantPartidos, EscaniosAgrupacion escanios){
+	// aquí estará la magia de asignar escanios
 
-	return escanios;
+	return;
 }
 
 
-EscaniosAgrupacion AsignarEscanios(char* filename, int &cantEscanios){
+EscaniosAgrupacion AsignarEscanios(char* filename, int cantEscanios){
 	/* abro el archivo al principio, cargo los datos en un array y cierro el archivo.
 	 *  Trabajamos con los datos en memoria. */
 	VotosAgrupacion partidos [MAX_PARTIDOS];
-	int cantPartidos =0;
+	int cantPartidos = 0;
 	FILE* archivo = fopen(filename, "rb");
 	fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
 	while(!feof(archivo)){
@@ -41,11 +43,10 @@ EscaniosAgrupacion AsignarEscanios(char* filename, int &cantEscanios){
 		fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
 	}
 
-	EscaniosAgrupacion escanios [cantPartidos];
-	escanios RepartirEscanios(partidos,cantEscanios,cantPartidos);
 
 	fclose(archivo);
-
+	EscaniosAgrupacion escanios [cantPartidos];
+	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
 	return escanios;
 }
 
@@ -53,7 +54,7 @@ EscaniosAgrupacion AsignarEscanios(char* filename, int &cantEscanios){
 int main (){
 	/* main super básico para probar la función */
 	EscaniosAgrupacion escanios [MAX_PARTIDOS];
-//	escanios AsignarEscanios('capital.bin',50);
-	escanios AsignarEscanios('provincia.bin',150);
+//	escanios = AsignarEscanios("capital.bin",50);
+	escanios = AsignarEscanios("provincia.bin", 150);
 	return 0;
 }
