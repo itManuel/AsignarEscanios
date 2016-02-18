@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <fstream>
-
+using namespace std;
 
 struct VotosAgrupacion
 {
@@ -59,11 +59,12 @@ void PonerEnLista(Nodo *&puntero,EscaniosAgrupacion partidos[], int cantPartidos
 }
 
 
-void AsignarEscanios(const char* &filename, const int &cantEscanios)
+Nodo* AsignarEscanios(const char* &filename, const int &cantEscanios)
 {
 	/* abro el archivo al principio, cargo los datos en un array y cierro el archivo.
 	 *  Trabajamos con los datos en memoria. */
 	VotosAgrupacion partidos [MAX_PARTIDOS];
+	Nodo*puntero;
 	int cantPartidos = 0;
 	FILE* archivo = fopen(filename, "rb");
 	fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
@@ -76,8 +77,9 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios)
 
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
-	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
-	PonerEnLista(puntero,partidos, cantPartidos)
+	//RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
+	PonerEnLista(puntero, escanios, cantPartidos);
+	return puntero;
 }
 
 
@@ -85,9 +87,9 @@ int main ()
 {
 	/* main super básico para probar la función */
 	//	escanios = AsignarEscanios("capital.bin",50);
-	escanios = AsignarEscanios(FILENAME, ESCANIOS);
+	// escanios = AsignarEscanios(FILENAME, ESCANIOS);
 	Nodo*puntero;
-	AsignarEscanios("provincia.bin", 150, puntero);
+	puntero = AsignarEscanios(FILENAME, ESCANIOS);
 
 	while(puntero!=NULL)
 	{
