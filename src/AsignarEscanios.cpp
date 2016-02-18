@@ -30,20 +30,50 @@ struct Nodo
 	Nodo *sgte;
 };
 
-namespace
-{
 
 const int MAX_PARTIDOS = 100;
 const char* FILENAME = "buenosaires.bin";
 const int ESCANIOS = 128;
-EscaniosAgrupacion escanios [MAX_PARTIDOS];
 
+
+float calcularEscanios(int votos, int escanios)
+{
+	return (votos*1.0) / (escanios + 1.0);
 }
 
-void RepartirEscanios(VotosAgrupacion partidos,int cantEscanios, int cantPartidos, EscaniosAgrupacion escanios)
+void RepartirEscanios(VotosAgrupacion partidos[],int cantEscanios, int cantPartidos, EscaniosAgrupacion escanios[])
 {
 	// aquí estará la magia de asignar escanios
+	int max, i, j, maxInd;
+	float tablaAux[100];
 
+	for (i=0; i<cantPartidos; i++)
+	{
+		escanios[i].escanios = 0;
+		escanios[i].nroLista = partidos[i].nroLista;
+	}
+
+	for (i=0; i<cantPartidos; i++)
+	{
+		tablaAux[i] = partidos[i].votos;
+	}
+	for (i=0; i<cantEscanios; i++)
+	{
+		//find max
+		max = -1;
+		for (j=0; j<cantPartidos; j++)
+		{
+			if (max<tablaAux[j])
+			{
+				max = tablaAux[j];
+				maxInd = j;
+			}
+		}
+
+		//give mandate for party with max
+		escanios[maxInd].escanios++;
+		tablaAux[maxInd] = calcularEscanios(partidos[maxInd].votos, escanios[maxInd].escanios);
+	}
 	return;
 }
 
@@ -77,7 +107,7 @@ Nodo* AsignarEscanios(const char* &filename, const int &cantEscanios)
 
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
-	//RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
+	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
 	PonerEnLista(puntero, escanios, cantPartidos);
 	return puntero;
 }
