@@ -6,39 +6,69 @@
 // Description : Sistema D'Hont para asignación de escanios.
 //============================================================================
 
+
+#include <iostream>
 #include <fstream>
 
 
-struct VotosAgrupacion {
-    int nroLista;
-    int votos;
+struct VotosAgrupacion
+{
+	int nroLista;
+	int votos;
 };
-struct EscaniosAgrupacion {
-    int nroLista;
-    int escanios;
+struct EscaniosAgrupacion
+{
+	int nroLista;
+	int escanios;
 };
 
-namespace {
+struct Nodo
+{
+	int nroLista;
+	int escanios;
+	Nodo *sgte;
+};
 
-	const int MAX_PARTIDOS = 100;
+namespace
+{
+
+const int MAX_PARTIDOS = 100;
+const char* FILENAME = "buenosaires.bin";
+const int ESCANIOS = 128;
+EscaniosAgrupacion escanios [MAX_PARTIDOS];
 
 }
 
-void RepartirEscanios(VotosAgrupacion partidos,int cantEscanios, int cantPartidos, EscaniosAgrupacion escanios){
+void RepartirEscanios(VotosAgrupacion partidos,int cantEscanios, int cantPartidos, EscaniosAgrupacion escanios)
+{
 	// aquí estará la magia de asignar escanios
 
 	return;
 }
 
+void PonerEnLista(Nodo *&puntero,EscaniosAgrupacion partidos[], int cantPartidos)
+{
+	int i;
+	for (i=0; i<cantPartidos; i++){
+		Nodo *nodo=new Nodo;
+		nodo->nroLista=partidos[i].nroLista;
+		nodo->escanios=partidos[i].escanios;
+		nodo->sgte=puntero;
+		puntero=nodo;
+	}
+}
 
-EscaniosAgrupacion AsignarEscanios(char* filename, int cantEscanios){
+
+void AsignarEscanios(const char* &filename, const int &cantEscanios)
+{
 	/* abro el archivo al principio, cargo los datos en un array y cierro el archivo.
 	 *  Trabajamos con los datos en memoria. */
 	VotosAgrupacion partidos [MAX_PARTIDOS];
 	int cantPartidos = 0;
 	FILE* archivo = fopen(filename, "rb");
 	fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
-	while(!feof(archivo)){
+	while(!feof(archivo))
+	{
 		cantPartidos++;
 		fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
 	}
@@ -47,14 +77,23 @@ EscaniosAgrupacion AsignarEscanios(char* filename, int cantEscanios){
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
 	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
-	return escanios;
+	PonerEnLista(puntero,partidos, cantPartidos)
 }
 
 
-int main (){
+int main ()
+{
 	/* main super básico para probar la función */
-	EscaniosAgrupacion escanios [MAX_PARTIDOS];
-//	escanios = AsignarEscanios("capital.bin",50);
-	escanios = AsignarEscanios("provincia.bin", 150);
+	//	escanios = AsignarEscanios("capital.bin",50);
+	escanios = AsignarEscanios(FILENAME, ESCANIOS);
+	Nodo*puntero;
+	AsignarEscanios("provincia.bin", 150, puntero);
+
+	while(puntero!=NULL)
+	{
+		cout<<"Lista: "<<puntero->nroLista<<"   escanios: "<<puntero->escanios<<endl;
+		puntero=puntero->sgte;
+	}
+
 	return 0;
 }
