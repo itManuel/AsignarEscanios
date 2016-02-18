@@ -16,6 +16,7 @@ struct VotosAgrupacion
 	int nroLista;
 	int votos;
 };
+
 struct EscaniosAgrupacion
 {
 	int nroLista;
@@ -73,7 +74,6 @@ Nodo* AsignarEscanios(const char* &filename, const int &cantEscanios)
 		cantPartidos++;
 		fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
 	}
-
 
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
