@@ -90,12 +90,12 @@ void PonerEnLista(Nodo *&puntero,EscaniosAgrupacion partidos[], int cantPartidos
 }
 
 
-Nodo* AsignarEscanios(const char* &filename, const int &cantEscanios)
+void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&puntero)
 {
 	/* abro el archivo al principio, cargo los datos en un array y cierro el archivo.
 	 *  Trabajamos con los datos en memoria. */
 	VotosAgrupacion partidos [MAX_PARTIDOS];
-	Nodo* puntero;
+
 	int cantPartidos = 0;
 	FILE* archivo = fopen(filename, "rb");
 	fread(&partidos[cantPartidos],sizeof(VotosAgrupacion),1,archivo);
@@ -109,27 +109,17 @@ Nodo* AsignarEscanios(const char* &filename, const int &cantEscanios)
 	EscaniosAgrupacion escanios [cantPartidos];
 	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
 	PonerEnLista(puntero, escanios, cantPartidos);
-	return puntero;
+
 }
 
-void VaciarLista(Nodo *& puntero){
-	Nodo *viejo;
-	
-	while( puntero != NULL )
-	{
-		viejo=puntero;
-		puntero=puntero->sgte;
-		delete viejo;
-	}
-}
 
 int main ()
 {
-	/* main super básico para probar la función */
+	/* main super bÃ¡sico para probar la funciÃ³n */
 	//	escanios = AsignarEscanios("capital.bin",50);
 	// escanios = AsignarEscanios(FILENAME, ESCANIOS);
 	Nodo*puntero;
-	puntero= AsignarEscanios(FILENAME, ESCANIOS);
+	AsignarEscanios(FILENAME, ESCANIOS, puntero);
 
 	while(puntero!=NULL)
 	{
@@ -137,6 +127,6 @@ int main ()
 		puntero=puntero->sgte;
 	}
 
-	VaciarLista(partidos);
+
 	return 0;
 }
