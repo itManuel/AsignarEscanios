@@ -122,7 +122,7 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&punt
 		if (escanios[j].escanios > escanios[j+1].escanios)	 
 		{
 			temp = escanios[j].escanios;	 
-			escanios[j]=escanios[j+1].escanios;  
+			escanios[j].escanios=escanios[j+1].escanios;  
 			escanios[j+1].escanios=temp;	
 		}
 	}
