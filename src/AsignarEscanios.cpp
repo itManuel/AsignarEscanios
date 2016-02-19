@@ -115,7 +115,7 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&punt
 
 int main ()
 {
-	/* main super bÃ¡sico para probar la funciÃ³n */
+	/* main super básico para probar la función */
 	//	escanios = AsignarEscanios("capital.bin",50);
 	// escanios = AsignarEscanios(FILENAME, ESCANIOS);
 	Nodo*puntero;
