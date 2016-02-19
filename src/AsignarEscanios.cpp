@@ -59,7 +59,7 @@ void RepartirEscanios(VotosAgrupacion partidos[],int cantEscanios, int cantParti
 	}
 	for (i=0; i<cantEscanios; i++)
 	{
-		//find max
+		//encontrar el mayor
 		max = -1;
 		for (j=0; j<cantPartidos; j++)
 		{
@@ -70,8 +70,9 @@ void RepartirEscanios(VotosAgrupacion partidos[],int cantEscanios, int cantParti
 			}
 		}
 
-		//give mandate for party with max
+		//asignar un escanio al partido encontrado
 		escanios[maxInd].escanios++;
+		//decrementar en la tabla auxiliar para volver a buscar el mayor
 		tablaAux[maxInd] = calcularEscanios(partidos[maxInd].votos, escanios[maxInd].escanios);
 	}
 	return;
