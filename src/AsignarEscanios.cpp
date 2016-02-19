@@ -119,11 +119,11 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&punt
 {
 	for (j=0;j<=cantPartidos-1;j++)
 	{
-		if (escanios[j] > escanios[j+1])	 
+		if (escanios[j].escanios > escanios[j+1].escanios)	 
 		{
-			temp = escanios[j];	 
-			escanios[j]=escanios[j+1];  
-			escanios[j+1]=temp;	
+			temp = escanios[j].escanios;	 
+			escanios[j]=escanios[j+1].escanios;  
+			escanios[j+1].escanios=temp;	
 		}
 	}
 }
