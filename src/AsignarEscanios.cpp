@@ -109,6 +109,24 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&punt
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
 	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
+	
+	
+    // ORDENAMIENTO
+	
+    int temp=0; // Auxiliar
+    int i,j; 
+	for (i=1;i<cantPartidos;i++)
+{
+	for (j=0;j<=cantPartidos-1;j++)
+	{
+		if (escanios[j] > escanios[j+1])	 
+		{
+			temp = escanios[j];	 
+			escanios[j]=escanios[j+1];  
+			escanios[j+1]=temp;	
+		}
+	}
+}
 	PonerEnLista(puntero, escanios, cantPartidos);
 
 }
