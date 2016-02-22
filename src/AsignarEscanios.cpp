@@ -97,13 +97,15 @@ void Ordenar(int cantPartidos, EscaniosAgrupacion escanios[]) {
 	for (i = 1; i < cantPartidos; i++) {
 		for (j = 0; j <= cantPartidos - 1; j++) {
 			if (escanios[j].escanios > escanios[j + 1].escanios) {
-				cout << "eh!!";
-				miEscanios = escanios[j].escanios;
-				miPartido = escanios[j].nroLista;
-				escanios[j].escanios = escanios[j + 1].escanios;
-				escanios[j].nroLista = escanios[j + 1].nroLista;
-				escanios[j + 1].escanios = miEscanios;
-				escanios[j + 1].nroLista = miPartido;
+				EscaniosAgrupacion tmp = escanios[j];
+				escanios[j]=escanios[j+1];
+				escanios[j+1]=tmp;
+				//miEscanios = escanios[j].escanios;
+				//miPartido = escanios[j].nroLista;
+				//escanios[j].escanios = escanios[j + 1].escanios;
+				//escanios[j].nroLista = escanios[j + 1].nroLista;
+				//escanios[j + 1].escanios = miEscanios;
+				//escanios[j + 1].nroLista = miPartido;
 			}
 		}
 	}
