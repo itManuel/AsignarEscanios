@@ -90,6 +90,24 @@ void PonerEnLista(Nodo *&puntero,EscaniosAgrupacion partidos[], int cantPartidos
 	}
 }
 
+void Ordenar(int cantPartidos, EscaniosAgrupacion escanios[]) {
+	// ORDENAMIENTO
+	int miEscanios, miPartido; // Auxiliares
+	int i, j;
+	for (i = 1; i < cantPartidos; i++) {
+		for (j = 0; j <= cantPartidos - 1; j++) {
+			if (escanios[j].escanios > escanios[j + 1].escanios) {
+				cout << "eh!!";
+				miEscanios = escanios[j].escanios;
+				miPartido = escanios[j].nroLista;
+				escanios[j].escanios = escanios[j + 1].escanios;
+				escanios[j].nroLista = escanios[j + 1].nroLista;
+				escanios[j + 1].escanios = miEscanios;
+				escanios[j + 1].nroLista = miPartido;
+			}
+		}
+	}
+}
 
 void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&puntero)
 {
@@ -109,24 +127,10 @@ void AsignarEscanios(const char* &filename, const int &cantEscanios, Nodo *&punt
 	fclose(archivo);
 	EscaniosAgrupacion escanios [cantPartidos];
 	RepartirEscanios(partidos, cantEscanios, cantPartidos, escanios);
-	
-	
-    // ORDENAMIENTO
-	
-    int temp=0; // Auxiliar
-    int i,j; 
-	for (i=1;i<cantPartidos;i++)
-{
-	for (j=0;j<=cantPartidos-1;j++)
-	{
-		if (escanios[j].escanios > escanios[j+1].escanios)	 
-		{
-			temp = escanios[j].escanios;	 
-			escanios[j].escanios=escanios[j+1].escanios;  
-			escanios[j+1].escanios=temp;	
-		}
-	}
-}
+
+
+	// ORDENAMIENTO
+	Ordenar(cantPartidos, escanios);
 	PonerEnLista(puntero, escanios, cantPartidos);
 
 }
