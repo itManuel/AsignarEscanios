@@ -92,7 +92,6 @@ void PonerEnLista(Nodo *&puntero,EscaniosAgrupacion partidos[], int cantPartidos
 
 void Ordenar(int cantPartidos, EscaniosAgrupacion escanios[]) {
 	// ORDENAMIENTO
-	int miEscanios, miPartido; // Auxiliares
 	int i, j;
 	for (i = 1; i < cantPartidos; i++) {
 		for (j = 0; j <= cantPartidos - 1; j++) {
@@ -100,12 +99,6 @@ void Ordenar(int cantPartidos, EscaniosAgrupacion escanios[]) {
 				EscaniosAgrupacion tmp = escanios[j];
 				escanios[j]=escanios[j+1];
 				escanios[j+1]=tmp;
-				//miEscanios = escanios[j].escanios;
-				//miPartido = escanios[j].nroLista;
-				//escanios[j].escanios = escanios[j + 1].escanios;
-				//escanios[j].nroLista = escanios[j + 1].nroLista;
-				//escanios[j + 1].escanios = miEscanios;
-				//escanios[j + 1].nroLista = miPartido;
 			}
 		}
 	}
